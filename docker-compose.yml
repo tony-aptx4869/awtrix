@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  awtrix:
+    image: whyet/awtrix2
+    container_name: awtrix
+    pull_policy: always
+    restart: always
+    ports:
+      - "7000:7000"
+      - "7001:7001"
+      - "5568:5568"
+    volumes:
+      - /root/awtrix:/data
+      - /sys/class/net/eth0/address:/data/hostmac
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_TOOL_OPTIONS="-Duser.language=zh -Duser.country=CN"
+      - AWTRIX_BETA=false
+      - AUTOUPDATE=false
+    networks:
+      - caddy-network
+
+networks:
+  caddy-network:
+    external: true
